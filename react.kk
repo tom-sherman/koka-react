@@ -6,19 +6,21 @@ struct element
 
 effect fun el( el : element ) : ()
 
-pub fun button( html-type: string, on-click: () -> e () ,children: () -> el () )
+alias children = () -> el ()
+
+pub fun button( html-type: string, on-click: () -> e () , children: children )
   Element(
     "button",
     collect(children)
   ).el
 
-pub fun div( class: ?string, children: () -> el () )
+pub fun div( class: ?string, children: children )
   Element(
     "div",
     collect(children)
   ).el
 
-pub fun p( class: ?string, children: () -> el () )
+pub fun p( class: ?string, children: children )
   Element(
     "div",
     collect(children)
@@ -30,7 +32,7 @@ pub fun text( text : string )
     []
   ).el
 
-fun collect ( children: () -> el () ) : list<element>
+fun collect ( children: children ) : list<element>
   var els : list<element> := []
   handle children
     fun el(x) els := els ++ [x]
@@ -40,5 +42,5 @@ fun collect ( children: () -> el () ) : list<element>
 fun show(element: element) : pure string
   element.kind ++ "->" ++ element.children.show-list(show)
 
-pub fun render-to-string(children: () -> el ()) : pure string
+pub fun render-to-string(children: children) : pure string
   collect(children).show-list(show)
