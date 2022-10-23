@@ -8,7 +8,7 @@ Here's the current proposed API, it's analogous to React.js in the following way
 
 - Hooks are replaced with algebraic effects, this remove many annoyances with React Hooks, namely they can be called conditionally, in loops, and not just at the top level
 - `useState` is replaced with the `state()` function and associated effect, it returns a state value that can be `get()` and `set()`.
-- `useEffect` is replaced with the `defer()` function and associated effect. Naming comes from this great article on algebraic effects, called so because the effect inside is deferred until after rendering.
+- `useEffect` is replaced with the `defer()` function and associated effect. Naming comes from [this great article on algebraic effects](https://blog.reesew.io/algebraic-effects-for-react-developers), called so because the effect inside is deferred until after rendering. `useLayoutEffect` would probably be `immediate()` or something.
 - JSX is replaced with bare function calls
 - Child elements are constructed in a `children` lambda. This allows for standard control flow (if/else, while loops, etc) instead of being forced into using expressions.
 
