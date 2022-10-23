@@ -4,38 +4,38 @@ struct element
   kind : string
   children: list<element>
 
-effect fun el( el : element ) : ()
+effect fun render( el : element ) : ()
 
-alias children = () -> el ()
+alias children = () -> render ()
 
 pub fun button( html-type: string, on-click: () -> e () , children: children )
   Element(
     "button",
     collect(children)
-  ).el
+  ).render
 
 pub fun div( class: ?string, children: children )
   Element(
     "div",
     collect(children)
-  ).el
+  ).render
 
 pub fun p( class: ?string, children: children )
   Element(
     "div",
     collect(children)
-  ).el
+  ).render
 
 pub fun text( text : string )
   Element(
     "_TEXT_ELEMENT",
     []
-  ).el
+  ).render
 
 fun collect ( children: children ) : list<element>
   var els : list<element> := []
   handle children
-    fun el(x) els := els ++ [x]
+    fun render(x) els := els ++ [x]
 
   els
 
