@@ -12,6 +12,10 @@ Here's the current proposed API, it's analogous to React.js in the following way
 - JSX is replaced with bare function calls
 - Child elements are constructed in a `children` lambda. This allows for standard control flow (if/else, while loops, etc) instead of being forced into using expressions.
 
+## Example
+
+This is proposed syntax/api, ofc subject to change.
+
 ```koka
 fun counter()
   val count = state(0)
@@ -40,6 +44,22 @@ fun counter()
     } else {
       p(class="text", children={ count.get.text })
     }
-
   })
 ```
+
+### What about fetching and suspense?
+
+Some very interesting possibilities here, for example how about fetching and suspending in the same component:
+
+```koka
+fun user-avatar(id)
+  div(class="user-avata-card", children={
+    suspense(fallback=spinner(), children={
+      let user = fetchUser(id)
+
+      img(href=user.avatar.url)
+    })
+  })
+```
+
+What's great is that fetchUser would have a signature like `(id: string) fetch -> user`. That fetch effect is crucial because it means we can have type-safe suspense boundaries.
