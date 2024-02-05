@@ -1,46 +1,24 @@
 module react
 
-struct element
-  kind : string
+pub effect fun render( el : element ) : ()
+
+pub ref type node
+  View
+  Text(text: string)
+
+pub struct element
+  node: node
   children: list<element>
 
-effect fun render( el : element ) : ()
 
-alias children = () -> render ()
+fun view-impl( children )
+  var nodes := []
+  with handler
+    return(x) Element(node=View, children=nodes.reverse)
+    fun render(el) nodes := Cons(el, nodes)
+  children()
 
-pub fun button( html-type: string, on-click: () -> e () , children: children )
-  Element(
-    "button",
-    collect(children)
-  ).render
+pub fun view(children) render(view-impl(children))
 
-pub fun div( class: ?string, children: children )
-  Element(
-    "div",
-    collect(children)
-  ).render
-
-pub fun p( class: ?string, children: children )
-  Element(
-    "div",
-    collect(children)
-  ).render
-
-pub fun text( text : string )
-  Element(
-    "_TEXT_ELEMENT",
-    []
-  ).render
-
-fun collect ( children: children ) : list<element>
-  var els : list<element> := []
-  handle children
-    fun render(x) els := els ++ [x]
-
-  els
-
-fun show(element: element) : pure string
-  element.kind ++ "->" ++ element.children.show-list(show)
-
-pub fun render-to-string(children: children) : pure string
-  collect(children).show-list(show)
+pub fun text( text: string )
+  render(Element(node=Text( text=text ), children=[]))

@@ -1,17 +1,15 @@
 import react
+import react-dom
 
 fun app()
-  div(children={
-    button(html-type="button", on-click={ print("clicked!") }, children={
-      text(text="Click me")
-    })
-
-    p(class="text", children={
-      button(html-type="button", on-click={ print("clicked!") }, children={
-        text(text="Click me")
-      })
-    })
-  })
+  view {
+    view {
+      text("hello")
+    }
+    view {
+      text("world")
+    }
+  }
 
 fun main()
-  render-to-string({ app() }).println
+  render-to-string(app).println
