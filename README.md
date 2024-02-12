@@ -63,3 +63,7 @@ fun user-avatar(id)
 ```
 
 What's great is that fetchUser would have a signature like `(id: string) fetch -> user`. That fetch effect is crucial because it means we can have type-safe suspense boundaries.
+
+## References
+
+- https://share.unison-lang.org/@dfreeman/tv
